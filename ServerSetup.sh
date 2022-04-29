@@ -556,11 +556,20 @@ setupSSH(){
 function Install_GoPhish {
 	function Install_GoPhish {
 
-	sudo apt-get install golang -qq -y
-	apt-get install build-essential -y
-	go get github.com/gophish/gophish
-	cd /root/go/src/github.com/gophish/gophish
-	go build 
+	#sudo apt-get install golang -qq -y
+	#sudo apt-get install build-essential -y
+	#sudo apt-get install git -y
+	#go get github.com/gophish/gophish
+	#cd /root/go/src/github.com/gophish/gophish
+	#go build 
+	cd ~
+	wget https://github.com/gophish/gophish/releases/download/v0.11.0/gophish-v0.11.0-linux-64bit.zip -O gophish.zip
+	mkdir gophish
+	unzip gophish.zip -d ./gophish
+	cd ./gophish
+	chmod +x gophish
+	tmux new -s gophish
+	
 	sudo ./gophish
 	
 	read -p "Enter your web server's domain: " -r primary_domain
@@ -578,6 +587,8 @@ function Install_GoPhish {
 	sed -i "s/gophish_admin/$primary_domain/g" config.json
 	sed -i "s/gophish_admin/$primary_domain/g" config.json
 	sed -i "s/example/$primary_domain/g" config.json
+	sed -i "s/false/true/g" config.json
+	sed -i "s/80/443/g" config.json
 	#sed -i "s/example.key/primary_domain/g" config.json
 
 	
