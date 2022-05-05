@@ -18,6 +18,7 @@ debian_initialize() {
 	rm -r /var/log/exim4/ > /dev/null 2>&1
 	sudo apt-get remove certbot -y
 	sudo apt install tmux -y
+	sudo apt install unzip -y
 
 	
 
@@ -566,11 +567,11 @@ function Install_GoPhish {
 	wget https://github.com/gophish/gophish/releases/download/v0.11.0/gophish-v0.11.0-linux-64bit.zip -O gophish.zip
 	sudo mkdir /etc/gophish
 	sudo unzip gophish.zip -d /etc/gophish
-	sudo cd /etc/gophish
-	sudo chmod +x gophish
+	sudo chmod +x /etc/gophish/gophish
 	#tmux new -s gophish
 	
 	#sudo ./gophish
+	cd /etc/gophish
 	
 	read -p "Enter your web server's domain: " -r primary_domain
 	if [ -f "/etc/letsencrypt/live/${primary_domain}/fullchain.pem" ]
